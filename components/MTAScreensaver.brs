@@ -7,8 +7,16 @@ Function init()
     m.TimeLabel = m.top.findNode("time_label")
     m.Background = m.top.findNode("background")
 
+    m.subway = m.top.findNode("subway_data")
+    'm.bus = m.top.findNode("bus_data")
+    m.bt = m.top.findNode("bt_data")
+    m.lirr = m.top.findNode("lirr_data")
+    m.mnr = m.top.findNode("mnr_data")
+
+
     m.global.observeField("Weather", "updateWeather")
     m.global.observeField("BackgroundUri", "updateBackground")
+    m.global.observeField("Mta", "updateMta")
 
     m.Timer = m.top.findNode("secondTimer")
     m.Timer.control = "start"
@@ -83,16 +91,52 @@ function updateDate()
     m.TimeLabel.text = getTime()
 end Function
 
-Function updateWeather()
+function updateWeather()
     if(m.global.Weather <> invalid)
         temperature = Int((m.global.Weather.main.temp - 273.15) * 1.8 + 32)
-        m.TempLabel.text = temperature.ToStr() + "° and " + m.global.Weather.weather[0].description
+        m.TempLabel.text = temperature.ToStr() + "° and " + m.global.Weather.weather[0].description + " in " + + m.global.Weather.name
     end if
-end Function
+end function
+
+Function updateMta()
+    if(m.global.Mta <> invalid)
+
+        r = CreateObject("roRegex", "\b((?!=|\,|\.).)+(.)$", "i")
+        subway = r.Replace(m.global.Mta.subway.mainText.trim(), "")
+        bus = r.Replace(m.global.Mta.bus.mainText.trim(), "")
+        bt = r.Replace(m.global.Mta.bt.mainText.trim(), "")
+        lirr = r.Replace(m.global.Mta.lirr.mainText.trim(), "")
+        mnr = r.Replace(m.global.Mta.mnr.mainText.trim(), "")
+
+        m.subway.text = subway
+        'm.bus.text = bus
+        m.bt.text = bt
+        m.lirr.text = lirr
+        m.mnr.text = mnr
+
+        'mta = subway + bus + bt + lirr + mnr
+
+        'ace = chr(10)+ "A C E - "+ m.global.Mta.ace.mainText
+        'bdfm = chr(10) + "B D F M - " +m.global.Mta.bdfm.mainText
+        'nqrw = chr(10) + "N Q R W - " +m.global.Mta.nqrw.mainText
+        'g = chr(10) + "G - " +m.global.Mta.g.mainText
+        'l = chr(10) + "L - " +m.global.Mta.l.mainText
+        'one23 = chr(10) + "1 2 3 - " +m.global.Mta["123"].mainText
+        'four56= chr(10) + "4 5 6 - " +m.global.Mta["456"].mainText
+        'seven = chr(10) + "7 8 9 - " +m.global.Mta["7"].mainText
+        'jz = chr(10) + "J Z - " +m.global.Mta.jz.mainText
+        'sir = chr(10) + "Staten Island RR - " +m.global.Mta.sir.mainText
+        's = chr(10) + "Shuttle - " +m.global.Mta.s.mainText
+        'mta = ace + bdfm + nqrw + g + l + one23 + four56 + seven + jz + sir + s
+
+        'm.MtaLabel.text = mta
+    end if
+end function
 
 'Background functions
-Function updateBackground()
+function updateBackground()
     if(m.global.BackgroundUri <> invalId)
         m.Background.uri = m.global.BackgroundUri
+        'm.Background.uri = getBackground()
     end if
-end Function
+end function

@@ -5,13 +5,18 @@
 #
 
 ##   Channel Details
-screensaver_title=Unsplash Screensaver
+screensaver_title=New York MTA Screensaver
 major_version=1
 minor_version=0
-build_version=0
+build_version=1
+
+mm_icon_focus_hd=pkg:/images/hd.png
+mm_icon_focus_sd=pkg:/images/sd.png
+mm_icon_focus_fhd=pkg:/images/fhd.png
+
+splash_screen_sd=pkg:/images/sssd.png
+splash_screen_hd=pkg:/images/sshd.png
+splash_screen_fhd=pkg:/images/ssfhd.png
 
 ui_resolutions=fhd
 
-mm_icon_focus_hd=pkg:/images/hd.png
-mm_icon_focus_fhd=pkg:/images/fhd.png
-mm_icon_focus_sd=pkg:/images/sd.png

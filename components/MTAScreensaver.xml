@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<component name='MTAScreensaver' extends='Scene' >
+    <script type='text/brightscript' uri = 'pkg:/components/MTAScreensaver.brs'/>
+    <children>
+
+        <Poster
+            id='background'
+            loadDisplayMode='scaleToZoom'
+            translation='[0,0]'
+            width='1920'
+            height='1080'
+        />
+
+        <!-- Overlay -->
+        <Rectangle
+            width='1920'
+            height='1080'
+            translation='[0,0]'
+            color="0x0A0A0A" 
+            opacity = "0.75"
+        />
+
+        <!-- Temperature Label -->
+        <SimpleLabel
+            id='temperature_label'
+            horizOrigin='left'
+            translation='[50, 50]'
+            fontSize='150'
+        />
+
+        <!-- Date/Time -->
+        <SimpleLabel
+            id='date_label'
+            horizOrigin='right'
+            translation='[1870, 50]'
+            fontSize='150'
+        />
+        <SimpleLabel
+            id='time_label'
+            horizOrigin='right'
+            translation='[1870, 100]'
+            fontSize='150'
+        />
+
+        <!-- MTA -->
+        <SimpleLabel
+            id='mta_label'
+            horizOrigin='left'
+            translation='[50, 120]'
+            fontUri='font:LargeBoldSystemFont'
+            text='New York MTA Status'
+        />
+        <ScrollingLabel
+            id='marquee'
+            horizAlign='left'
+            vertAlign = 'top'
+            translation='[575, 120]'
+            height='200'
+            maxWidth='1100'
+            text='Sponsor this screensaver to reach Streamers across tri-state area!  Email nealrs@gmail.com to learn more'
+        />  
+
+        <SimpleLabel
+            id='subway'
+            horizOrigin='left'
+            translation='[50, 200]'
+            fontUri='font:LargeSystemFont'
+            text='Subways'
+        />
+        <Label
+            id='subway_data'
+            horizAlign='left'
+            vertAlign = 'top'
+            translation='[575, 200]'
+            wrap='true'
+            height='200'
+            width='1240'
+            fontUri='font:MediumSystemFont'
+        />  
+
+        <!--<SimpleLabel
+            id='bus'
+            horizOrigin='left'
+            translation='[50, 375]'
+            fontUri='font:LargeSystemFont'
+            text='Busses'
+        />
+        <Label
+            id='bus_data'
+            horizAlign='left'
+            vertAlign = 'top'
+            translation='[575, 375]'
+            wrap='true'
+            height='150'
+            width='1240'
+            fontUri='font:MediumSystemFont'
+        />-->  
+
+        <SimpleLabel
+            id='bt'
+            horizOrigin='left'
+            translation='[50, 400]'
+            fontUri='font:LargeSystemFont'
+            text='Bridges &amp; Tunnels'
+        />
+        <Label
+            id='bt_data'
+            horizAlign='left'
+            vertAlign = 'top'
+            translation='[575, 400]'
+            wrap='true'
+            height='200'
+            width='1240'
+            fontUri='font:MediumSystemFont'
+        />  
+
+        <SimpleLabel
+            id='lirr'
+            horizOrigin='left'
+            translation='[50, 650]'
+            fontUri='font:LargeSystemFont'
+            text='Long Island Railroad'
+        />
+        <Label
+            id='lirr_data'
+            horizAlign='left'
+            vertAlign = 'top'
+            translation='[575, 650]'
+            wrap='true'
+            height='200'
+            width='1240'
+            fontUri='font:MediumSystemFont'
+        />  
+
+        <SimpleLabel
+            id='mnr'
+            horizOrigin='left'
+            translation='[50, 900]'
+            fontUri='font:LargeSystemFont'
+            text='Metro-North Railroad'
+        />
+        <Label
+            id='mnr_data'
+            horizAlign='left'
+            vertAlign = 'top'
+            translation='[575, 900]'
+            wrap='true'
+            height='200'
+            width='1240'
+            fontUri='font:MediumSystemFont'
+        />  
+
+        <Timer
+            id='secondTimer'
+            repeat='true'
+            duration='1'
+        />
+
+    </children>
+</component>

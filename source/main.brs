@@ -12,7 +12,7 @@ sub main()
     screen.setMessagePort(port)
 
     m.zip = getZip()
-    m.bg = getBackgrounds()
+    m.bg = m.config.backgrounds
 
     m.global = screen.getGlobalNode()
     m.global.AddFields({"BackgroundUri": "", "Weather": {}, "Mta": {}})
@@ -43,29 +43,9 @@ sub main()
     end while
 end sub
 
-function getBackgrounds()
-    request = CreateObject("roUrlTransfer")
-    request.SetCertificatesFile("common:/certs/ca-bundle.crt")
-    request.SetUrl("https://api.unsplash.com/search/photos?query=nyc&per_page=100&orientation=landscape")
-    request.AddHeader("Authorization", "Client-ID " + m.config.unsplash_api_key)
-    response = request.GetToString()
-
-    if(response <> "")
-        json = ParseJSON(response)
-
-        if(json <> invalid)
-            return json.results
-        else
-            return invalid
-        end if
-    else
-        return invalid
-    end if
-end function
-
 function randomBG()
     if(m.bg <> invalid)
-        return m.bg[RND(100)-1].urls.regular
+        return m.bg[RND(100)-1]
     else
         return "https://images.unsplash.com/photo-1518235506717-e1ed3306a89b?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjg3OTI1fQ"
     end if

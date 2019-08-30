@@ -5,10 +5,12 @@
 #
 
 ##   Channel Details
+title=New York MTA Screensaver
 screensaver_title=New York MTA Screensaver
 major_version=1
 minor_version=0
 build_version=1
+rsg_version=1.2
 
 mm_icon_focus_hd=pkg:/images/hd.png
 mm_icon_focus_sd=pkg:/images/sd.png
@@ -19,4 +21,7 @@ splash_screen_hd=pkg:/images/sshd.png
 splash_screen_fhd=pkg:/images/ssfhd.png
 
 ui_resolutions=fhd
+
+supports_input_launch=1
+
 

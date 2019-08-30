@@ -15,7 +15,7 @@ sub main()
     m.bg = m.config.backgrounds
 
     m.global = screen.getGlobalNode()
-    m.global.AddFields({"BackgroundUri": "", "Weather": {}, "Mta": {}})
+    m.global.AddFields({"BackgroundUri": "", "Weather": {}, "Mta": {}, "Sponsor": ""})
 
     counter = 0
 
@@ -25,6 +25,7 @@ sub main()
     m.global.BackgroundUri = randomBG() 'getBackground()
     m.global.Weather = getWeather()
     m.global.Mta = getMta()
+    m.global.Sponsor = getSponsor()
 
     while(true) 'Uses message port to listen if channel is closed
         msg = wait(1, port)
@@ -38,11 +39,13 @@ sub main()
             m.global.BackgroundUri = randomBG() 'getBackground()
             m.global.Weather = getWeather()
             m.global.Mta = getMta()
+            m.global.Sponsor = getSponsor()
             counter = 0
         end if
     end while
 end sub
 
+'Background rotator
 function randomBG()
     if(m.bg <> invalid)
         return m.bg[RND(100)-1]
@@ -51,6 +54,7 @@ function randomBG()
     end if
 end function
 
+'Weather
 function getZip()
     request = CreateObject("roUrlTransfer")
     request.SetCertificatesFile("common:/certs/ca-bundle.crt")
@@ -70,7 +74,6 @@ function getZip()
     end if
 end function
 
-'Weather functions
 function getWeather()
     request = CreateObject("roUrlTransfer")
     request.SetCertificatesFile("common:/certs/ca-bundle.crt")
@@ -90,7 +93,7 @@ function getWeather()
     end if
 end function
 
-'MTA
+'MTA Status
 function getMTA()
     request = CreateObject("roUrlTransfer")
     request.SetCertificatesFile("common:/certs/ca-bundle.crt")
@@ -102,6 +105,26 @@ function getMTA()
 
         if(json <> invalid)
             return json
+        else
+            return invalid
+        end if
+    else
+        return invalid
+    end if
+end function
+
+'Get Sponsor message
+function getSponsor()
+    request = CreateObject("roUrlTransfer")
+    request.SetCertificatesFile("common:/certs/ca-bundle.crt")
+    request.SetUrl(m.config.sponsorAPI)
+    response = request.GetToString()
+
+    if(response <> "")
+        json = ParseJSON(response)
+
+        if(json <> invalid)
+            return json.message
         else
             return invalid
         end if

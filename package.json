@@ -2,6 +2,7 @@
   "scripts": {
     "build": "zip -9 -r ../roku.zip .",
     "deploy": "roku-deploy",
+    "pack": "node pack",
     "debug": "telnet 192.168.86.34 8085"
   },
   "dependencies": {

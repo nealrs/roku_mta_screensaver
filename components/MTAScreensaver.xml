@@ -51,13 +51,13 @@
             text='New York MTA Status'
         />
         <ScrollingLabel
-            id='marquee'
+            id='sponsor_label'
             horizAlign='left'
             vertAlign = 'top'
             translation='[575, 120]'
             height='200'
             maxWidth='1100'
-            text='Sponsor this screensaver to reach Streamers across tri-state area!  Email nealrs@gmail.com to learn more'
+            text=''
         />  
 
         <SimpleLabel

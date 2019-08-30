@@ -6,6 +6,7 @@ Function init()
     m.DateLabel = m.top.findNode("date_label")
     m.TimeLabel = m.top.findNode("time_label")
     m.Background = m.top.findNode("background")
+    m.SponsorLabel = m.top.findNode("sponsor_label")
 
     m.subway = m.top.findNode("subway_data")
     'm.bus = m.top.findNode("bus_data")
@@ -17,6 +18,7 @@ Function init()
     m.global.observeField("Weather", "updateWeather")
     m.global.observeField("BackgroundUri", "updateBackground")
     m.global.observeField("Mta", "updateMta")
+    m.global.observeField("Sponsor", "updateSponsor")
 
     m.Timer = m.top.findNode("secondTimer")
     m.Timer.control = "start"
@@ -138,5 +140,12 @@ function updateBackground()
     if(m.global.BackgroundUri <> invalId)
         m.Background.uri = m.global.BackgroundUri
         'm.Background.uri = getBackground()
+    end if
+end function
+
+'Update Sponsor
+function updateSponsor()
+    if(m.global.Sponsor <> invalid)
+        m.SponsorLabel.text = m.global.Sponsor
     end if
 end function

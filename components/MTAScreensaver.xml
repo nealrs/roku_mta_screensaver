@@ -50,14 +50,22 @@
             fontUri='font:LargeBoldSystemFont'
             text='New York MTA Status'
         />
-        <ScrollingLabel
+        <!--<ScrollingLabel
             id='sponsor_label'
             horizAlign='left'
             vertAlign = 'top'
-            translation='[575, 120]'
+            translation='[575, 50]'
             height='200'
-            maxWidth='1100'
+            maxWidth='1000'
             text=''
+        />-->
+        <!-- Sponsor Ad -->
+        <Poster
+            id='sponsor_ad'
+            loadDisplayMode='scaleToZoom'
+            translation='[575,50]'
+            width='0.0'
+            height='90'
         />  
 
         <SimpleLabel

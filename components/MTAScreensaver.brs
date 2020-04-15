@@ -6,14 +6,13 @@ Function init()
     m.DateLabel = m.top.findNode("date_label")
     m.TimeLabel = m.top.findNode("time_label")
     m.Background = m.top.findNode("background")
-    m.SponsorLabel = m.top.findNode("sponsor_label")
+    m.Sponsor = m.top.findNode("sponsor_ad")
 
     m.subway = m.top.findNode("subway_data")
     'm.bus = m.top.findNode("bus_data")
     m.bt = m.top.findNode("bt_data")
     m.lirr = m.top.findNode("lirr_data")
     m.mnr = m.top.findNode("mnr_data")
-
 
     m.global.observeField("Weather", "updateWeather")
     m.global.observeField("BackgroundUri", "updateBackground")
@@ -96,19 +95,25 @@ end Function
 function updateWeather()
     if(m.global.Weather <> invalid)
         temperature = Int((m.global.Weather.main.temp - 273.15) * 1.8 + 32)
-        m.TempLabel.text = temperature.ToStr() + "° and " + m.global.Weather.weather[0].description + " in " + + m.global.Weather.name
+        'm.TempLabel.text = temperature.ToStr() + "° and " + m.global.Weather.weather[0].description + " in " + + m.global.Weather.name
+        m.TempLabel.text = temperature.ToStr() + "° and " + m.global.Weather.weather[0].description
     end if
 end function
 
 Function updateMta()
     if(m.global.Mta <> invalid)
 
-        r = CreateObject("roRegex", "\b((?!=|\,|\.).)+(.)$", "i")
-        subway = r.Replace(m.global.Mta.subway.mainText.trim(), "")
-        bus = r.Replace(m.global.Mta.bus.mainText.trim(), "")
-        bt = r.Replace(m.global.Mta.bt.mainText.trim(), "")
-        lirr = r.Replace(m.global.Mta.lirr.mainText.trim(), "")
-        mnr = r.Replace(m.global.Mta.mnr.mainText.trim(), "")
+        r1 = CreateObject("roRegex", "Stand clear of the closing doors please!", "i")
+        r2 = CreateObject("roRegex", "Please exit through the rear doors!", "i")
+        r3 = CreateObject("roRegex", "Sunglasses off, lights on!", "i")
+        r4 = CreateObject("roRegex", "Tickets please!", "i")
+        r5 = CreateObject("roRegex", "Tickets please!", "i")
+
+        subway = r1.Replace(m.global.Mta.subway.mainText.trim(), "")
+        bus = r2.Replace(m.global.Mta.bus.mainText.trim(), "")
+        bt = r3.Replace(m.global.Mta.bt.mainText.trim(), "")
+        lirr = r4.Replace(m.global.Mta.lirr.mainText.trim(), "")
+        mnr = r5.Replace(m.global.Mta.mnr.mainText.trim(), "")
 
         m.subway.text = subway
         'm.bus.text = bus
@@ -146,6 +151,6 @@ end function
 'Update Sponsor
 function updateSponsor()
     if(m.global.Sponsor <> invalid)
-        m.SponsorLabel.text = m.global.Sponsor
+        m.Sponsor.uri = m.global.Sponsor
     end if
 end function

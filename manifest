@@ -8,8 +8,8 @@
 title=New York MTA Screensaver
 screensaver_title=New York MTA Screensaver
 major_version=1
-minor_version=0
-build_version=1
+minor_version=1
+build_version=2
 rsg_version=1.2
 
 mm_icon_focus_hd=pkg:/images/hd.png
@@ -23,5 +23,4 @@ splash_screen_fhd=pkg:/images/ssfhd.png
 ui_resolutions=fhd
 
 supports_input_launch=1
-
-
+sg_component_libs_required=Roku_Analytics

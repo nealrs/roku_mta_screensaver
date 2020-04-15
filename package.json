@@ -3,9 +3,9 @@
     "build": "zip -9 -r ../roku.zip .",
     "deploy": "roku-deploy",
     "pack": "node pack",
-    "debug": "telnet 192.168.86.34 8085"
+    "debug": "telnet 192.168.86.85 8085"
   },
   "dependencies": {
-    "roku-deploy": "^2.1.0"
+    "roku-deploy": "^2.7.0"
   }
 }

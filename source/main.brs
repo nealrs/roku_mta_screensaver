@@ -5,7 +5,7 @@ End function
 sub main()
     m.config = ReadAsciiFile("pkg:/source/config.json")
     m.config = ParseJSON(m.config)
-
+        
     screen = createObject("roSGScreen") 'Creates screen to display screensaver
 
     port = createObject("roMessagePort") 'Port to listen to events on screen
@@ -16,9 +16,7 @@ sub main()
 
     m.global = screen.getGlobalNode()
     m.global.AddFields({"BackgroundUri": "", "Weather": {}, "Mta": {}, "Sponsor": ""})
-    
-    counter = 0
-    
+   
     scene = screen.createScene("MTAScreensaver") 'Creates scene to display on screen. Scene name (AnimatedScreensaver) must match ID of XML Scene Component
     screen.show()
 
@@ -30,22 +28,18 @@ sub main()
     'Initialize GA & send launch event
     gaInit()
     while(true) 'Uses message port to listen if channel is closed
-        msg = wait(1, port)
-        counter++
+        msg = wait(3*60000, port) '3 min timer
         if (msg <> invalid)
             msgType = type(msg)
             if msgType = "roSGScreenEvent"
                 if msg.isScreenClosed() then return
             end if
-        else if counter = 180000 ' 3 minutes
+        else
             m.global.BackgroundUri = randomBG()
             m.global.Weather = getWeather()
             m.global.Mta = getMta()
             m.global.Sponsor = getSponsor()
-            counter = 0
-            
-            'send 3 min heartbeat
-            gaHeartBeat()
+            gaHeartBeat() 'send 3 min heartbeat
         end if
     end while
 end sub
@@ -80,7 +74,21 @@ function randomBG()
 end function
 
 'Weather
+'get zip from cache, or get & set from ipstack
 function getZip()
+    print "getZip()"
+    if (regRead("zip", "zip") <> invalid)
+        'print "read from registry"
+        return regRead("zip", "zip")
+    else
+        'print "save to registry"
+        regWrite("zip", setZip(), "zip")
+        return regRead("zip", "zip")
+    end if
+end function
+
+function setZip()
+    print 'setZIP()'
     request = CreateObject("roUrlTransfer")
     request.SetCertificatesFile("common:/certs/ca-bundle.crt")
     request.SetUrl("http://api.ipstack.com/check?access_key="+m.config.ipstack_api_key)
@@ -196,3 +204,25 @@ sub gaHeartBeat()
         }
     }
 end sub
+
+'Registry functions
+Function regRead(key,section=invalid)
+If section=invalid section="Default"
+sec=CreateObject("roRegistrySection",section)
+If sec.Exists(key) Return sec.Read(key)
+Return invalid
+End Function
+
+Function regWrite(key,val,section=invalid)
+If section=invalid section="Default"
+sec=CreateObject("roRegistrySection",section)
+sec.Write(key,val)
+sec.Flush() 'commit it
+End Function
+
+Function regDelete(key,section=invalid)
+If section=invalid section="Default"
+sec=CreateObject("roRegistrySection",section)
+sec.Delete(key)
+sec.Flush()
+End Function
